@@ -31,7 +31,9 @@ def set_driver(driver_path, headless_flg):
 
 
 def main():
-    search_keyword = "高収入"
+    print("検索したいキーワードを入力してください。")
+    search_keyword = input()
+    #search_keyword = "高収入"
     # driverを起動
     if os.name == 'nt': #Windows
         driver = set_driver("chromedriver.exe", False)
@@ -82,7 +84,7 @@ def main():
         # 検索結果の一番上の勤務地を取得
         location_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[3]/td")
         # 検索結果の一番上の年収を取得
-        salary_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[4]/td")
+        #salary_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[4]/td")
         
         for name, location in zip(name_list, location_list[1:]):
             exp_name_list.append(name.text)
@@ -107,19 +109,6 @@ def main():
         except Exception:
             break
             
-    
-
-
-
-    # for i in range(len(name_list)):
-    #     print(name_list[i].text)
-    #     print(location_list[i+1].text)
-    #     print(salary_list[i+1].text)
-    #     print("################")
-
-
-
-
 
 # 直接起動された場合はmain()を起動(モジュールとして呼び出された場合は起動しないようにするため)
 if __name__ == "__main__":
