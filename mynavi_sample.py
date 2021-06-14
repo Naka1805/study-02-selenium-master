@@ -61,15 +61,7 @@ def main():
     exp_location_list = []
     exp_salary_list = []
 
-    # 検索結果の一番上の会社名を取得
-    name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
-
-    # 検索結果の一番上の勤務地を取得
-    location_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[3]/td")
-
-    # 検索結果の一番上の年収を取得
-    salary_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[4]/td")
-
+    
 # 勤務地のXpath
 # /html/body/div[1]/div[3]/form/div/div[3]/div/div[2]/div[1]/table/tbody/tr[3]/td
 # /html/body/div[1]/div[3]/form/div/div[4]/div/div[2]/div[1]/table/tbody/tr[3]/td
@@ -79,28 +71,51 @@ def main():
 # /html/body/div[1]/div[3]/form/div/div[4]/div/div[2]/div[1]/table/tbody/tr[3]/td
 
     # 1ページ分繰り返し
-
-
     # print(len(name_list))
     # for name in name_list:
     #     exp_name_list.append(name.text)
     #     print(name.text)
     
-    # print(len(location_list))
-    # for location in location_list[1:]:
-    #     exp_location_list.append(location.text)
-    #     print(location.text)
+    while True:
+        # 検索結果の一番上の会社名を取得
+        name_list = driver.find_elements_by_class_name("cassetteRecruit__name")
+        # 検索結果の一番上の勤務地を取得
+        location_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[3]/td")
+        # 検索結果の一番上の年収を取得
+        salary_list = driver.find_elements_by_xpath("/html/body/div[1]/div[3]/form/div/div/div/div[2]/div[1]/table/tbody/tr[4]/td")
         
-    # print(len(salary_list))
-    # for salary in salary_list[1:]:
-    #     exp_salary_list.append(salary.text)
-    #     print(salary.text)
+        for name, location in zip(name_list, location_list[1:]):
+            exp_name_list.append(name.text)
+            exp_location_list.append(location.text)
+            print(name.text)
+            print(location.text)
+        
+        try:
+            driver.find_element_by_class_name("iconFont--arrowLeft").click()
+            time.sleep(3)
+            try:
+                    # ポップアップを閉じる
+                driver.execute_script('document.querySelector(".karte-close").click()')
+                time.sleep(5)
+                    # ポップアップを閉じる
+                driver.execute_script('document.querySelector(".karte-close").click()')
+            except:
+                pass
 
-    for i in range(len(name_list)):
-        print(name_list[i].text)
-        print(location_list[i+1].text)
-        print(salary_list[i+1].text)
-        print("################")
+            #driver.execute_script('document.querySelector(".karte-close").click()')
+
+        except Exception:
+            break
+            
+    
+
+
+
+    # for i in range(len(name_list)):
+    #     print(name_list[i].text)
+    #     print(location_list[i+1].text)
+    #     print(salary_list[i+1].text)
+    #     print("################")
 
 
 
